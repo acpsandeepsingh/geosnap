@@ -3,14 +3,10 @@
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
-export function GeoSnapLogo({ className }: { className?: string }) {
-  const [logoSrc, setLogoSrc] = useState('/logo.png');
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
-  useEffect(() => {
-    // Add a timestamp to bypass browser cache.
-    // This is a debugging step to ensure the latest image is fetched.
-    setLogoSrc(`/logo.png?t=${new Date().getTime()}`);
-  }, []);
+export function GeoSnapLogo({ className }: { className?: string }) {
+  const [logoSrc, setLogoSrc] = useState(`${basePath}/logo.png`);
 
   return (
     <div className={cn('flex items-center', className)}>
