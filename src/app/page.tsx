@@ -21,7 +21,7 @@ export interface CapturedData {
 export default function CameraPage() {
   const [stampedData, setStampedData] = useState<CapturedData | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const { toast } = useToast();
+  const { toast, dismiss } = useToast();
   const processingToastId = useRef<string | null>(null);
 
   const handleCapture = useCallback(
@@ -67,14 +67,12 @@ export default function CameraPage() {
       } finally {
         setIsProcessing(false);
         if (processingToastId.current) {
-          // Find the dismiss function from the hook to close the toast
-          const { dismiss } = toast({ id: '' });
           dismiss(processingToastId.current);
           processingToastId.current = null;
         }
       }
     },
-    [toast]
+    [toast, dismiss]
   );
 
   const handleDiscard = () => {
