@@ -6,6 +6,8 @@ interface OverlayData extends CapturedData {
   address: string;
 }
 
+const basePath = '/geosnap';
+
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -29,7 +31,7 @@ export async function drawOverlayOnCanvas(data: OverlayData): Promise<string> {
 
   const [img, logoImg] = await Promise.all([
     loadImage(data.imageSrc),
-    loadImage(`/logo.png?t=${new Date().getTime()}`), // Load the app logo
+    loadImage(`${basePath}/logo.png?t=${new Date().getTime()}`), // Load the app logo
   ]);
 
   // Set canvas dimensions to match the image
